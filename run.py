@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
 import sys
 from ui import Ui_MainWindow as UI
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from verify import *
 import zipfile
 import shutil
