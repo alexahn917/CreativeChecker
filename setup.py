@@ -15,9 +15,9 @@ options = {
 }
 
 setup(
-    name = "<any name>",
+    name = "Creative Checker",
     options = options,
-    version = "<any number>",
-    description = '<any description>',
+    version = "1.0.0",
+    description = 'Moloco Creative Checker',
     executables = executables
 )
