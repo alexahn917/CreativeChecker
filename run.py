@@ -25,7 +25,10 @@ class CreativeChecker(QtWidgets.QMainWindow):
             zip_ref = zipfile.ZipFile(fileName, 'r')
             zip_ref.extractall('temp')
             zip_ref.close()
-            error_msg = verify_images_in_dir('temp')
+            try:
+                error_msg = verify_images_in_dir('temp')
+            except:
+                self.pop_up_message("Error caused from extracting the ZIP file. Please verify that only image files are contained.")
             shutil.rmtree('temp')
             self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
         elif not fileName:
@@ -39,9 +42,12 @@ class CreativeChecker(QtWidgets.QMainWindow):
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileNames, _ = QtWidgets.QFileDialog.getOpenFileNames(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
         error_msg = ""
-        for fileName in fileNames:
-            if is_valid_image_file(fileName):
-                error_msg += verify_image(fileName)
+        try:
+            for fileName in fileNames:
+                if is_valid_image_file(fileName):
+                    error_msg += verify_image(fileName)
+        except:
+            self.pop_up_message("Error caused from handling image file. Please select valid image files only.")
         self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
 
     def pop_up_message(self, msg):
