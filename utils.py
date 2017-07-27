@@ -1,3 +1,4 @@
+import ntpath
 import struct
 import imghdr
 
@@ -67,3 +68,7 @@ def get_image_size(fname):
         else:
             return
         return tuple([width, height])
+
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)

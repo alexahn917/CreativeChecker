@@ -27,7 +27,7 @@ class CreativeChecker(QtWidgets.QMainWindow):
             zip_ref.close()
             error_msg = verify_images_in_dir('temp')
             shutil.rmtree('temp')
-            self.ui.result_txt_box.setText(error_msg)
+            self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
         elif not fileName:
             pass
         else:
@@ -42,7 +42,7 @@ class CreativeChecker(QtWidgets.QMainWindow):
         for fileName in fileNames:
             if is_valid_image_file(fileName):
                 error_msg += verify_image(fileName)
-        self.ui.result_txt_box.setText(error_msg)
+        self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
 
     def pop_up_message(self, msg):
         msgbox = QtWidgets.QMessageBox()
@@ -51,6 +51,15 @@ class CreativeChecker(QtWidgets.QMainWindow):
         msgbox.setWindowTitle("Error")
         msgbox.exec_()
 
+    def clean_up_error_msg(self, msg):
+        ok = "<OK>\n\n"
+        error = "\n\n<ERROR>\n\n"
+        for line in msg.split('\n'):
+            if "OK" in line:
+                ok += line + "\n"
+            else:
+                error += line + "\n"
+        return ok + error
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

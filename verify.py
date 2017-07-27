@@ -34,10 +34,10 @@ def verify_images_in_dir(dirPath):
     return error_msg
 
 def verify_image(abs_file_path):
-    file_name = abs_file_path.split("/")[-1]
+    file_name = path_leaf(abs_file_path)
     error_msg = ""
     if not is_valid_image_file(abs_file_path):
-        error_msg += "[Invalid File Type Error] : " + str(abs_file_path.split("/")[-1]) + " is not a valid image file\n"
+        error_msg += "[Invalid File Type Error] : " + file_name + " is not a valid image file\n"
     size = get_image_size(abs_file_path)
     if size not in nat_sizes and size not in req_sizes and size not in opt_sizes:
         error_msg += "[Invalid Size Error] for " + file_name + " : " + str(size) + "\n"
