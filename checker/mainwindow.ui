@@ -17,27 +17,27 @@
    <widget class="QPushButton" name="btn_checker_zip">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>190</x>
       <y>20</y>
-      <width>191</width>
+      <width>201</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Check Creative ZIP File</string>
+     <string>Creative ZIP File</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_checker_jpeg">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>190</x>
       <y>70</y>
-      <width>191</width>
+      <width>201</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Check Creative JPEG File</string>
+     <string>Creative Image Files</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="result_txt_box">

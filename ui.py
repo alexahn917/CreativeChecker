@@ -15,10 +15,10 @@ class Ui_MainWindow(object):
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.btn_checker_zip = QtWidgets.QPushButton(self.centralWidget)
-        self.btn_checker_zip.setGeometry(QtCore.QRect(200, 20, 191, 51))
+        self.btn_checker_zip.setGeometry(QtCore.QRect(190, 20, 201, 51))
         self.btn_checker_zip.setObjectName("btn_checker_zip")
         self.btn_checker_jpeg = QtWidgets.QPushButton(self.centralWidget)
-        self.btn_checker_jpeg.setGeometry(QtCore.QRect(200, 70, 191, 51))
+        self.btn_checker_jpeg.setGeometry(QtCore.QRect(190, 70, 201, 51))
         self.btn_checker_jpeg.setObjectName("btn_checker_jpeg")
         self.result_txt_box = QtWidgets.QTextBrowser(self.centralWidget)
         self.result_txt_box.setGeometry(QtCore.QRect(90, 130, 411, 192))
@@ -44,8 +44,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btn_checker_zip.setText(_translate("MainWindow", "Check Creative ZIP File"))
-        self.btn_checker_jpeg.setText(_translate("MainWindow", "Check Creative JPEG File"))
+        self.btn_checker_zip.setText(_translate("MainWindow", "Creative ZIP File"))
+        self.btn_checker_jpeg.setText(_translate("MainWindow", "Creative Image Files"))
         self.menuMoloco_Creative_Checker.setTitle(_translate("MainWindow", "Moloco Creative Checker"))
 
 
