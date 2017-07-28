@@ -58,14 +58,14 @@ class CreativeChecker(QtWidgets.QMainWindow):
         msgbox.exec_()
 
     def clean_up_error_msg(self, msg):
-        ok = "<OK>\n\n"
-        error = "\n\n<ERROR>\n\n"
+        error = "<Invalid Creatives>\n\n"
+        ok = "<Valid Creatives>\n\n"
         for line in msg.split('\n'):
             if "OK" in line:
                 ok += line + "\n"
             else:
                 error += line + "\n"
-        return ok + error
+        return error + ok
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
