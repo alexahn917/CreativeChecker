@@ -46,6 +46,10 @@ class CreativeChecker(QtWidgets.QMainWindow):
             for fileName in fileNames:
                 if is_valid_image_file(fileName):
                     error_msg += verify_image(fileName)
+                else:
+                    self.pop_up_message("Not an image file")
+                    error_msg = ""
+                    break
         except:
             self.pop_up_message("Error caused from handling image file. Please select valid image files only.")
         self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
@@ -58,6 +62,8 @@ class CreativeChecker(QtWidgets.QMainWindow):
         msgbox.exec_()
 
     def clean_up_error_msg(self, msg):
+        if not msg:
+            return ""
         error = "<Invalid Creatives>\n\n"
         ok = "<Valid Creatives>\n\n"
         for line in msg.split('\n'):
