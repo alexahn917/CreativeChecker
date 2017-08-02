@@ -5,9 +5,9 @@
 
 1. Check Creative ZIP
 - Verifies that
---all 3 native image formats are contained
---all required image formats are contained
---all image format is valid
+-- all 3 native image formats are contained
+-- all required image formats are contained
+-- all image format is valid
 
 2. Check Creative Image(s)
 - Verifies that each image size format is acceptable.
