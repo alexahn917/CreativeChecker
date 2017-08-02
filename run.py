@@ -1,7 +1,8 @@
 import sys
-from ui import Ui_MainWindow as UI
+from UI.ui import Ui_MainWindow as UI
 from PyQt5 import QtWidgets
-from verify import *
+from Utils.verify import *
+from Utils.resize import *
 import zipfile
 import shutil
 
@@ -13,14 +14,17 @@ class CreativeChecker(QtWidgets.QMainWindow):
         self.set_up_backend()
 
     def set_up_backend(self):
-        self.ui.btn_checker_zip.clicked.connect(self.on_checker_click_zip)
-        self.ui.btn_checker_jpeg.clicked.connect(self.on_checker_click_jpeg)
+        self.ui.btn_checker_zip.clicked.connect(self.on_click_checker_zip)
+        self.ui.btn_checker_img.clicked.connect(self.on_click_checker_img)
+        self.ui.btn_checker_resize.clicked.connect(self.on_click_resize)
 
-    def on_checker_click_zip(self):
+
+    def on_click_checker_zip(self):
         self.ui.result_txt_box.setText("")
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        error_msg = ""
         if is_valid_zip_file(fileName):
             zip_ref = zipfile.ZipFile(fileName, 'r')
             zip_ref.extractall('temp')
@@ -36,7 +40,7 @@ class CreativeChecker(QtWidgets.QMainWindow):
         else:
             self.pop_up_message("Not a zip file")
 
-    def on_checker_click_jpeg(self):
+    def on_click_checker_img(self):
         self.ui.result_txt_box.setText("")
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
@@ -52,6 +56,18 @@ class CreativeChecker(QtWidgets.QMainWindow):
                     break
         except:
             self.pop_up_message("Error caused from handling image file. Please select valid image files only.")
+        self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
+
+    def on_click_resize(self):
+        self.ui.result_txt_box.setText("")
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        fileNames, _ = QtWidgets.QFileDialog.getOpenFileNames(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        error_msg = ""
+        try:
+            error_msg += resize(fileNames)
+        except:
+            self.pop_up_message("Error caused from resizing image file. Please select valid image files only.")
         self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
 
     def pop_up_message(self, msg):

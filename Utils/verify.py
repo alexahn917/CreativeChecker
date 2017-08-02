@@ -1,5 +1,5 @@
 import os
-from utils import *
+from Utils.utils import *
 
 nat_sizes = required_native_img_sizes()
 req_sizes = required_img_sizes()

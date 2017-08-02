@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>398</height>
+    <width>637</width>
+    <height>497</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,37 +17,50 @@
    <widget class="QPushButton" name="btn_checker_zip">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>220</x>
       <y>20</y>
       <width>201</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Creative ZIP File</string>
+     <string>Check Creative ZIP File</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_checker_jpeg">
+   <widget class="QPushButton" name="btn_checker_img">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>220</x>
       <y>70</y>
       <width>201</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Creative Image Files</string>
+     <string>Check Creative Image Files</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="result_txt_box">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>130</y>
-      <width>411</width>
-      <height>192</height>
+      <x>40</x>
+      <y>180</y>
+      <width>551</width>
+      <height>241</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_checker_resize">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>120</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Creative Auto Resize</string>
     </property>
    </widget>
   </widget>
@@ -56,7 +69,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>577</width>
+     <width>637</width>
      <height>22</height>
     </rect>
    </property>
