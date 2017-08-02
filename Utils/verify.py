@@ -28,9 +28,12 @@ def is_valid_image_file(fileName):
 def verify_images_in_dir(dirPath):
     error_msg = ""
     for filename in os.listdir(dirPath)[1:]:
-        abs_file_path = os.path.abspath(os.path.join(dirPath, filename))
-        error_msg += verify_image(abs_file_path)
-    error_msg += verify_required_image_sizes(dirPath)
+        if not is_valid_image_file(filename):
+            error_msg += "[%s] is not an image file\n" %filename
+        else:
+            abs_file_path = os.path.abspath(os.path.join(dirPath, filename))
+            error_msg += verify_image(abs_file_path)
+            error_msg += verify_required_image_sizes(dirPath)
     return error_msg
 
 def verify_image(abs_file_path):

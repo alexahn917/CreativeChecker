@@ -3,7 +3,7 @@ from PIL import Image
 
 FORMATS = ["1024x768", "768x1024", "320x50", "728x90", "336x280", "300x600", "300x250", "120x600", "160x600",
            "375x667", "667x375", "200x200", "250x250", "300x600", "468x60"]
-OUTPUT_DIRECTORY = "generated"
+OUTPUT_DIRECTORY = "/generated"
 
 class Entry(object):
     def __init__(self, filename):
@@ -17,9 +17,8 @@ class Entry(object):
     def size(self):
         return str(self.width) + "x" + str(self.height)
 
-    def convert(self, format):
+    def convert(self, format, dirPath):
         width, height = map(int, format.split("x"))
-        print("For "+ str(width) + "x" + str(height) + " : ")
 
         if width/height < self.ratio():
             target_height = int(width/self.ratio())
@@ -28,24 +27,23 @@ class Entry(object):
             target_width = int(height*self.ratio())
             target_height = height
 
-        print("Converting : "+self.size() + " -> " + str(target_width) + "x" + str(target_height))
-
         resized_im = self.im.resize((target_width, target_height), Image.ANTIALIAS)
         new_im = Image.new("RGB",(width,height))
         new_im.paste(resized_im, ((width-target_width)//2, (height-target_height)//2))
 
-        if not os.path.exists(OUTPUT_DIRECTORY):
-            os.makedirs(OUTPUT_DIRECTORY)
+        if not os.path.exists(dirPath + OUTPUT_DIRECTORY):
+            os.makedirs(dirPath + OUTPUT_DIRECTORY)
 
-        new_im.save(OUTPUT_DIRECTORY+"/"+format+".jpg")
-        new_im.show()
-        print()
+        new_im.save(dirPath + OUTPUT_DIRECTORY+"/"+format+".jpg")
+
+        return ("For [%s]:\n   resized %s -> %s\n" %(str(width)+"x"+str(height), self.size(), str(target_width)+"x"+str(target_height)))
 
     def ratio(self):
         return float(self.width)/float(self.height)
 
 
-def resize(filenames):
+def resize(dirPath):
+    filenames = [os.path.abspath(os.path.join(dirPath, filename)) for filename in os.listdir(dirPath)]
     msg = ""
     image_files = []
     for filename in filenames:
@@ -64,6 +62,6 @@ def resize(filenames):
                 if ( entry.width>=w or entry.height>=h ) and ( best_ratio > abs(ratio-entry.ratio())):
                     best_ratio = abs(ratio-entry.ratio())
                     best_entry = entry
-            best_entry.convert(format)
-            msg += ("Resized [%s] -> [%s]\n" %(str(best_entry).split(" ")[1], format))
+            if best_entry:
+                msg += best_entry.convert(format, dirPath)
     return msg
