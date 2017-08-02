@@ -67,8 +67,9 @@ class CreativeChecker(QtWidgets.QMainWindow):
         try:
             error_msg += resize(fileNames)
         except:
-            self.pop_up_message("Error caused from resizing image file. Please select valid image files only.")
-        self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
+            if fileNames:
+                self.pop_up_message("Error caused from resizing image file. Please select valid image files only.")
+        self.ui.result_txt_box.setText(error_msg)
 
     def pop_up_message(self, msg):
         msgbox = QtWidgets.QMessageBox()
