@@ -53,7 +53,6 @@ class CreativeChecker(QtWidgets.QMainWindow):
         self.ui.result_txt_box.setText("")
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        options |= QtWidgets.QFileDialog.ShowDirsOnly
         dirPath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select a folder:', 'C:\\', options=options)
         error_msg = ""
         if dirPath:
