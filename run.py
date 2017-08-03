@@ -3,6 +3,7 @@ from UI.ui import Ui_MainWindow as UI
 from PyQt5 import QtWidgets
 from Utils.verify import *
 from Utils.resize import *
+from subprocess import call
 import zipfile
 import shutil
 
@@ -37,7 +38,6 @@ class CreativeChecker(QtWidgets.QMainWindow):
                 error_msg = verify_images_in_dir(tempPath)
             except:
                 self.pop_up_message("Error occurred while verifying images in the selected zip file")
-
             shutil.rmtree(dirPath + "/temp")
             self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
         elif not fileName:
@@ -71,6 +71,8 @@ class CreativeChecker(QtWidgets.QMainWindow):
         if dirPath:
             try:
                 error_msg = resize(dirPath)
+                targetDirectory = dirPath
+                call(["open", targetDirectory])
             except:
                 self.pop_up_message("Error occurred while resizing images in the selected directory")
         self.ui.result_txt_box.setText(error_msg)
