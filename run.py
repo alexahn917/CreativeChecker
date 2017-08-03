@@ -28,7 +28,10 @@ class CreativeChecker(QtWidgets.QMainWindow):
             zip_ref = zipfile.ZipFile(fileName, 'r')
             zip_ref.extractall('temp')
             zip_ref.close()
-            error_msg = verify_images_in_dir('temp')
+            try:
+                error_msg = verify_images_in_dir('temp')
+            except:
+                self.pop_up_message("Error occurred while verifying images in the selected directory")
             shutil.rmtree('temp')
             self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
         elif not fileName:
@@ -44,7 +47,11 @@ class CreativeChecker(QtWidgets.QMainWindow):
         error_msg = ""
         for fileName in fileNames:
             if is_valid_image_file(fileName):
-                error_msg += verify_image(fileName)
+                try:
+                    error_msg += verify_image(fileName)
+                except:
+                    self.pop_up_message("Error occurred while verifying image [%s]" %fileName)
+                    pass
             else:
                 error_msg += "[%s] is not an image file\n" %path_leaf(fileName)
         self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
@@ -56,7 +63,10 @@ class CreativeChecker(QtWidgets.QMainWindow):
         dirPath = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select a folder:', 'C:\\', options=options)
         error_msg = ""
         if dirPath:
-            error_msg = resize(dirPath)
+            try:
+                error_msg = resize(dirPath)
+            except:
+                self.pop_up_message("Error occurred while resizing images in the selected directory")
         self.ui.result_txt_box.setText(error_msg)
 
     def pop_up_message(self, msg):

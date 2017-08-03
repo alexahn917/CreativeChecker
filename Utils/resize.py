@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 FORMATS = ["1024x768", "768x1024", "320x50", "728x90", "336x280", "300x600", "300x250", "120x600", "160x600",
-           "375x667", "667x375", "200x200", "250x250", "300x600", "468x60"]
+           "375x667", "667x375", "200x200", "250x250", "300x600", "468x60", "1200x627"]
 OUTPUT_DIRECTORY = "/generated"
 
 class Entry(object):
@@ -20,7 +20,7 @@ class Entry(object):
     def convert(self, format, dirPath):
         width, height = map(int, format.split("x"))
 
-        if width/height < self.ratio():
+        if float(width)/float(height) < self.ratio():
             target_height = int(width/self.ratio())
             target_width = width
         else:
@@ -58,10 +58,11 @@ def resize(dirPath):
             best_entry = None
             best_ratio = 999.9
             for entry in image_files:
-                # print ratio-entry.ratio()
-                if ( entry.width>=w or entry.height>=h ) and ( best_ratio > abs(ratio-entry.ratio())):
+                if (best_ratio > abs(ratio-entry.ratio())):
                     best_ratio = abs(ratio-entry.ratio())
                     best_entry = entry
             if best_entry:
                 msg += best_entry.convert(format, dirPath)
+    if not msg:
+        msg = "No images have been resized"
     return msg

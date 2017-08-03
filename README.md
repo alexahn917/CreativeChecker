@@ -13,7 +13,7 @@
 - Verifies that each image size format is acceptable.
 
 3. Creative Auto Resize
-- Automatically resizes images to valid formats using best-fitted images by ratio.
+- Automatically resize images to valid formats using best-fitted images by ratio.
 
 
 ### Usage:
