@@ -25,15 +25,12 @@ class CreativeChecker(QtWidgets.QMainWindow):
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self,"Select a .zip file", "","All Files (*);;Python Files (*.py)", options=options)
         if is_valid_zip_file(fileName):
-            print(fileName)
             dirPath = str.join("/", fileName.split("/")[:-1])
             tempPath = dirPath + '/temp'
             zip_ref = zipfile.ZipFile(fileName, 'r')
             zip_ref.extractall(tempPath)
             zip_ref.close()
             error_msg = ""
-            print(len(os.listdir(tempPath)))
-            print(os.listdir(tempPath))
             if len(os.listdir(tempPath)) is 1:
                 tempPath = dirPath + "/temp/" + os.listdir(tempPath)[0]
             try:
