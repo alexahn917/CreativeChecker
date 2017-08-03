@@ -25,14 +25,23 @@ class CreativeChecker(QtWidgets.QMainWindow):
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self,"Select a .zip file", "","All Files (*);;Python Files (*.py)", options=options)
         if is_valid_zip_file(fileName):
+            print(fileName)
+            dirPath = str.join("/", fileName.split("/")[:-1])
+            tempPath = dirPath + '/temp'
             zip_ref = zipfile.ZipFile(fileName, 'r')
-            zip_ref.extractall('temp')
+            zip_ref.extractall(tempPath)
             zip_ref.close()
+            error_msg = ""
+            print(len(os.listdir(tempPath)))
+            print(os.listdir(tempPath))
+            if len(os.listdir(tempPath)) is 1:
+                tempPath = dirPath + "/temp/" + os.listdir(tempPath)[0]
             try:
-                error_msg = verify_images_in_dir('temp')
+                error_msg = verify_images_in_dir(tempPath)
             except:
-                self.pop_up_message("Error occurred while verifying images in the selected directory")
-            shutil.rmtree('temp')
+                self.pop_up_message("Error occurred while verifying images in the selected zip file")
+
+            shutil.rmtree(dirPath + "/temp")
             self.ui.result_txt_box.setText(self.clean_up_error_msg(error_msg))
         elif not fileName:
             pass
