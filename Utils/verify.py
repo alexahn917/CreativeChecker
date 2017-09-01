@@ -54,8 +54,8 @@ def verify_image(abs_file_path):
 def verify_required_image_sizes(dirPath):
     received_img_sizes = set()
     error_msg = ""
-    print(os.listdir(dirPath)[1:])
-    for filename in os.listdir(dirPath)[1:]:
+    print(os.listdir(dirPath))
+    for filename in os.listdir(dirPath):
         abs_file_path = os.path.abspath(os.path.join(dirPath, filename))
         if is_valid_image_file(abs_file_path):
             received_img_sizes.add(get_image_size(abs_file_path))
