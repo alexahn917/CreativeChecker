@@ -5,7 +5,6 @@ import imghdr
 def required_native_img_sizes():
     sizes = {
         tuple([1200, 627]),
-        tuple([80, 80]),
         tuple([128, 128]),
     }
     return sizes
@@ -38,17 +37,20 @@ def get_image_size(fname):
     '''Determine the image type of fhandle and return its size.
     from draco'''
     with open(fname, 'rb') as fhandle:
+        file_type = fname.split(".")[-1] if "." in fname else None
         head = fhandle.read(24)
         if len(head) != 24:
+            print("len(head) is not 24: " + fname)
             return
-        if imghdr.what(fname) == 'png':
+        if file_type == 'png':
             check = struct.unpack('>i', head[4:8])[0]
             if check != 0x0d0a1a0a:
+                print("Error for " + fname)
                 return
             width, height = struct.unpack('>ii', head[16:24])
-        elif imghdr.what(fname) == 'gif':
+        elif file_type == 'gif':
             width, height = struct.unpack('<HH', head[6:10])
-        elif imghdr.what(fname) == 'jpeg':
+        elif file_type == 'jpeg' or file_type == 'jpg':
             try:
                 fhandle.seek(0)  # Read 0xff next
                 size = 2
@@ -64,9 +66,13 @@ def get_image_size(fname):
                 fhandle.seek(1, 1)  # Skip `precision' byte.
                 height, width = struct.unpack('>HH', fhandle.read(4))
             except Exception:  # IGNORE:W0703
+                print("Error raised while parsing size for jpeg/jpg: " + fname)
                 return
         else:
+            print("File type error: " + fname)
             return
+        # ***Debug***
+        # print(fname + ": " + str(tuple([width, height])))
         return tuple([width, height])
 
 def path_leaf(path):
